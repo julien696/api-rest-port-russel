@@ -8,7 +8,7 @@ app.use(express.json());
 
 connectToMongo(); 
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     res.send('Hello world') 
 });
 
