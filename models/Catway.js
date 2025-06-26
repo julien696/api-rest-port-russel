@@ -17,4 +17,4 @@ const catwaySchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Catways', catwaySchema);
+module.exports = mongoose.model('Catway', catwaySchema);
