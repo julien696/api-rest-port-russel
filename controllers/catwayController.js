@@ -3,7 +3,13 @@ const Catway = require('../models/Catway');
 exports.getAllCatways = async (req, res) => {
     try {
         const catways = await Catway.find();
-        res.status(200).json(catways);
+
+        if(catways) {
+            res.render('catways', {
+                title : 'Catway',
+                catways : catways
+            });
+        }
     } catch(error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message});
     }
@@ -34,7 +40,7 @@ exports.updateCatway = async (req, res) => {
     }  
 };
 
-exports.partialUpdatecatway = async (req, res) => {
+exports.partialUpdateCatway = async (req, res) => {
     try {
         const updateCatway = await Catway.findByIdAndUpdate(
             req.params.id,
