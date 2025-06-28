@@ -1,6 +1,11 @@
 const mongoose = required('mongoose');
 
 const bookingSchema = new mongoose.Schema({
+    bookingId : {
+        type : Number,
+        required : true,
+        unique : true,
+    },
     catwayNumber : {
         type : Number,
         required : true
@@ -17,7 +22,7 @@ const bookingSchema = new mongoose.Schema({
         type : Date,
         required : true
     },
-    chekOut : {
+    checkOut : {
         type : Date,
         required : true
     }
