@@ -5,7 +5,7 @@ exports.getAllCatways = async (req, res) => {
         const catways = await Catway.find();
 
         if(catways) {
-            res.render('catways', {
+            res.render('catwaysList', {
                 title : 'Catway',
                 catways : catways
             });
@@ -33,7 +33,10 @@ exports.updateCatway = async (req, res) => {
             req.body,
             { new: true, runValidators: true}
         );
-        if(!updatedCatway) return res.status(404).json({ message:'Catway bnon trouvé'});
+
+        if(!updatedCatway) 
+            return res.status(404).json({ message:'Catway bnon trouvé'});
+
         res.status(200).json(updatedCatway);
     } catch(error) {
         res.status(400).json({message: 'Erreur mise à jour', error: error.message});
@@ -47,7 +50,9 @@ exports.partialUpdateCatway = async (req, res) => {
             { $set: req.body },
             { new: true, runValidators: true}
         );
-        if(!updateCatway) return res.status(404).json({ message: 'Catway non trouvé'});
+        if(!updateCatway)
+             return res.status(404).json({ message: 'Catway non trouvé'});
+
         res.status(200).json(updateCatway);
     } catch(error) {
         res.status(400).json({message: 'Erreur patch', error: error.message});
@@ -57,8 +62,13 @@ exports.partialUpdateCatway = async (req, res) => {
 exports.getCatwayById = async (req, res) => {
     try {
         const catway = await Catway.findById(req.params.id);
-        if(!catway) return res.status(404).json({ message: 'Catway non trouvé'});
-        res.status(200).json(catway)
+
+        if(!catway) 
+            return res.status(404).json({ message: 'Catway non trouvé'});
+
+        return res.render('catwayById', {
+            title: `Détail du catway ${catway.catwayNumber}`,
+            catway});
     } catch(error) {
         res.satus(500).json({ message: 'Erreur serveur', error: error.message});
     }
@@ -67,7 +77,10 @@ exports.getCatwayById = async (req, res) => {
 exports.deleteCatway = async (req,res) => {
     try {
         const deleteCatway = await Catway.findByIdAndDelete(req.params.id);
-        if(!deleteCatway) return res.status(404).json({message: 'Catway non trouvé'});
+
+        if(!deleteCatway) 
+            return res.status(404).json({message: 'Catway non trouvé'});
+        
         res.status(200).json({message: 'Ctaway supprimé'})
     } catch(error) {
         res.status(500).json({message: 'Erreur Serveur', error: error.message});
