@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const catwayController = require('../controllers/catwayController');
-const validateCatway = requiere('../middleware/validateCatway');
+const validateCatway = require('../middleware/validateCatway');
 
 router.get('/', catwayController.getAllCatways);
 router.post('/', validateCatway, catwayController.createCatway);

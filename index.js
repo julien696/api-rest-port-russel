@@ -3,13 +3,19 @@ const express = require('express');
 const connectToMongo = require('./services/mongoConnect')
 const app = express(); 
 const port = process.env.PORT;
+const path = require('path');
+const indexRouter = require('./routes/index');
+
+connectToMongo();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); 
 
 app.use(express.json());
-
-connectToMongo(); 
+app.use('/', indexRouter);
 
 app.get('/', (req, res) => {
-    res.send('Hello world') 
+    res.render('index')
 });
 
 app.listen(port, () => {
