@@ -7,13 +7,45 @@
 </head>
 <body>
     <header>
-
     </header>
     <main>
-        <h1>Tableau de bord</h1>
+        <% if (error) { %>
+        <p style="color:red;"><%= error %></p>
+        <% } %>
+        <h1>Bienvenue <%= user.name %></h1>
+        <section class="utilisateur">
+            <h2>Utilisateur</h2>
+            <form action="/user/create" method="post">
+                <h3>Créer un utilisateur</h3>
+                <input type="text" name="name" placeholder="Nom" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Mot de passe" required>
+                <button type="submit">Créer</button>
+            </form>
+
+            <form action="/user/update" method="post">
+                <h3>Modifier un utilisateur</h3>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="newName" placeholder="Nouveau nom" required>
+                <input type="email" name="newEmail" placeholder="Nouvel email" required>
+                <input type="password" name="newPassword" placeholder="Mot de passe" required>
+                <button type="submit">Modifier</button>
+            </form>
+
+            <form method="POST" action="/user/delete" onsubmit="return confirm('Êtes-vous sur de vouloir supprimmer <%= email %> ?')">
+                <h3>Supprimer un utilisateur</h3>
+                <input type="email" name="email" placeholder="Email de l'utilisateur" required>
+                <button type="submit">Supprimer</button>
+            </form>
+        </section>
     </main>
     <footer>
 
     </footer>
+    <% if (successMsg) { %>
+    <script>
+    alert("<%= successMsg %>");
+    </script>
+    <% } %>
 </body>
 </html>
