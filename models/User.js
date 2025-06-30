@@ -1,5 +1,5 @@
-const mongoose = required('mongoose');
-const { hashPassword } = required('../services/passwordService')
+const mongoose = require('mongoose');
+const { hashPassword } = require('../services/passwordService')
 
 const userSchema = new mongoose.Schema({
     name : {
