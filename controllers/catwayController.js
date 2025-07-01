@@ -4,7 +4,6 @@ exports.getAllCatways = async (req, res) => {
     try {
         const catways = await Catway.find();
 
-        // Pas besoin de tester if(catways), find() renvoie toujours un tableau (vide ou non)
         res.render('catwaysList', {
             title: 'Catways',
             catways: catways
@@ -51,7 +50,7 @@ exports.partialUpdateCatway = async (req, res) => {
         const update = {};
 
         if (type) update.type = type;
-        if (catwayState) update.catwayState = catwayState; // correction majuscule "catwayState"
+        if (catwayState) update.catwayState = catwayState;
 
         const catway = await Catway.findByIdAndUpdate(id, update, { new: true });
         if (!catway) return res.render('dashboard', { error: 'Catway non trouvé', catway: null });
@@ -81,7 +80,7 @@ exports.getCatwayById = async (req, res) => {
 
 exports.deleteCatway = async (req, res) => {
     try {
-        const { id } = req.body;  // correction : extraire id de req.body
+        const { id } = req.body; 
         const catway = await Catway.findByIdAndDelete(id);
 
         if (!catway)

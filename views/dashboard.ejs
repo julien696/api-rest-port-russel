@@ -7,6 +7,14 @@
 </head>
 <body>
     <header>
+        <nav>
+            <ul>
+                <li><a href="dashboard">Retour Tableau de bord</a></li>
+                <li><a href="catwaysList">Liste des catways</a></li>
+                <li><a href="bookingsList">Liste des réservations</a></li>
+                <li><a href="">Documentation</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <% if (error) { %>
@@ -102,7 +110,7 @@
                 <button type="submit">Voir la réservation</button>
             </form>
 
-            <form action="/catway/<%= catway._id %>/bookings/create" method="POST">
+            <form action="/booking/create" method="POST">
                 <h3>Créer une réservation</h3>
                 <input type="text" name="clientName" placeholder="Nom du client" required>
                 <input type="text" name="boatName" placeholder="Nom du bateau" required>
@@ -111,8 +119,10 @@
                 <button type="submit">Créer</button>
             </form>
 
-             <form action="/catway/<%= catway._id %>/bookings/<%= booking._id %>" method="POST">
+             <form action="/booking/update" method="POST">
                 <h3>Modifier une réservation</h3>
+                <input type="text" name="idCatway" placeholder="Id du catway" required>
+                <input type="text" name="idReservation" placeholder="Id de la réservation" required>
                 <input type="text" name="clientName" placeholder="Nom du client" required>
                 <input type="text" name="boatName" placeholder="Nom du bateau" required>
                 <input type="date" name="checkIn" placeholder="Date d'arrivée" required>
@@ -120,7 +130,8 @@
                 <button type="submit">Modifier</button>
             </form>
 
-            <form action="/catway/<%= catway._id %>/bookings/<%= booking._id %>/delete" method="POST" onsubmit="return confirm('Confirmez-vous la suppression de cette réservation ?');">
+            <form action="/booking/delete" method="POST" onsubmit="return confirm('Confirmez-vous la suppression de cette réservation ?');">
+                <h3>Supprimer une Réservation</h3>
                 <input type="text" id="catwayId" name="catwayId" placeholder="Id du catway" required>
                 <input type="text" id="bookingId" name="bookingId" placeholder="Id de la réservation" required>
                 <button type="submit">Supprimer</button>

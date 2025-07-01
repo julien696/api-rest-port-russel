@@ -5,8 +5,8 @@ const validateFormBooking = require('../middleware/validateFormBooking')
 
 router.get('/:id/reservations', bookingController.getAllBookings);
 router.get('/booking/search', bookingController.getBookingById);
-router.post('/:id/reservation/create',validateFormBooking, bookingController.createBooking);
-router.post('/:id/reservation/update', bookingController.updateBooking);
-router.post('/:id/reservation/delete', bookingController.deleteBooking);
+router.post('/booking/create',validateFormBooking, bookingController.createBooking);
+router.post('/booking/update', bookingController.updateBooking);
+router.post('/booking/delete', bookingController.deleteBooking);
 
 module.exports = router;
