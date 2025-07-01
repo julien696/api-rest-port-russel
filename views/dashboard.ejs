@@ -13,8 +13,10 @@
         <p style="color:red;"><%= error %></p>
         <% } %>
         <h1>Bienvenue <%= user.name %></h1>
+
         <section class="utilisateur">
             <h2>Utilisateur</h2>
+
             <form action="/user/create" method="post">
                 <h3>Créer un utilisateur</h3>
                 <input type="text" name="name" placeholder="Nom" required>
@@ -25,16 +27,68 @@
 
             <form action="/user/update" method="post">
                 <h3>Modifier un utilisateur</h3>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="id" placeholder="Id utilisateur" required>
                 <input type="text" name="newName" placeholder="Nouveau nom" required>
                 <input type="email" name="newEmail" placeholder="Nouvel email" required>
                 <input type="password" name="newPassword" placeholder="Mot de passe" required>
                 <button type="submit">Modifier</button>
             </form>
 
-            <form method="POST" action="/user/delete" onsubmit="return confirm('Êtes-vous sur de vouloir supprimmer <%= email %> ?')">
+            <form method="POST" action="/user/delete" onsubmit="return confirm('Êtes-vous sur de vouloir supprimmer utilisateur id: <%= id %> ?')">
                 <h3>Supprimer un utilisateur</h3>
-                <input type="email" name="email" placeholder="Email de l'utilisateur" required>
+                <input type="text" name="id" placeholder="Id de l'utilisateur" required>
+                <button type="submit">Supprimer</button>
+            </form>
+        </section>
+
+        <section class="catway">
+            <h2>Catway</h2>
+
+            <form action="/catway/create" method="POST">
+                <h3>Créer un catway</h3>
+                <input type="text" name="catwayNumber" placeholder="N° du catway" required>
+                <select name="type" required>
+                    <option value="long">Long</option>
+                    <option value="short">Court</option>
+                </select>
+                <input type="text" name="catwayState" placeholder="État du catway" required>
+                <button type="submit">Créer</button>
+            </form>
+
+            <form action="/catway/update" method="POST">
+                <h3>Modifier un catway</h3>
+                <input type="text" name="id" placeholder="Id du catway" required>
+                <input type="text" name="catwayNumber" placeholder="Nouveau n° catway" required>
+                <select name="type" required>
+                    <option value="long">Long</option>
+                    <option value="short">Court</option>
+                </select>
+                <input type="text" name="catwayState" placeholder="Nouvel état" required>
+                <button type="submit">Modifier</button>
+            </form>
+
+            <form action="/catway/partialUpdate" method="POST">
+                <h3>Modifier partiellement un catway</h3>
+                <input type="text" name="id" placeholder="Id du catway" required>
+                <input type="text" name="catwayNumber" placeholder="Nouveau n° catway" required>
+                <select name="type" required>
+                    <option value="">-- Ne pas modifier--</option>
+                    <option value="long">Long</option>
+                    <option value="short">Court</option>
+                </select>
+                <input type="text" name="catwayState" placeholder="Nouvel état" required>
+                <button type="submit">Modifier</button>
+            </form>
+
+            <form action="/catway/catway-by-id" method="GET">
+                <h3>Rechercher un catway par Id</h3>
+                <input type="text" name="id" placeholder="Id du catway" required>
+                <button type="submit">Rechercher</button>
+            </form>
+
+            <form action="/catway/delete" method="POST" onsubmit="return confirm('Êtes-vous sur de vouloir supprimmer catway id: <%= id %> ?')">
+                <h3>Supprimer un catway</h3>
+                <input type="text" name="id" placeholder="Id du catway" required>
                 <button type="submit">Supprimer</button>
             </form>
         </section>

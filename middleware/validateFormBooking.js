@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-const validateBooking = [
+const validateFormBooking = [
     body('bookingId').isNumeric().withMessage(`L'Id de réservation doit être un nombre`),
     body('clientName').trim().isLength({ min: 3 }).withMessage('Le nom du client doit contenir au moins 3 caractères'),
     body('boatName').trim().isLength({ min: 3 }).withMessage('Le nom du bateau doit contenir au moins 3 caractères'),
@@ -16,4 +16,4 @@ const validateBooking = [
     }
 ];
 
-module.exports = validateBooking;
+module.exports = validateFormBooking;
