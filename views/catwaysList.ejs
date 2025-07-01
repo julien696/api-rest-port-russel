@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des catways</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/dashboard/<%= username %>">Retour Tableau de bord</a></li>
+                <li><a href="/catway/<%= username %>/catwaysList">Liste des catways</a></li>
+                <li><a href="/bookingsList">Liste des réservations</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1><%= title %></h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Type</th>
+                    <th>État</th>
+                    <th>Réservation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% catways.forEach(catway =>{ %>
+                <tr>
+                    <td><%= catway.catwayNumber %></td>
+                    <td><%= catway.catwayType %></td>
+                    <td><%= catway.catwayState %></td>
+                    <td><a href="/catways/<%= catway._id %>/reservations">Voir les réservations</a></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

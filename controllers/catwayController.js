@@ -5,8 +5,9 @@ exports.getAllCatways = async (req, res) => {
         const catways = await Catway.find();
 
         res.render('catwaysList', {
-            title: 'Catways',
-            catways: catways
+            title: 'Liste des Catways',
+            catways: catways,
+            username: req.user.name
         });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });

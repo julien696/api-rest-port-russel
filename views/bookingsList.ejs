@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des réservations</title>
+</head>
+<body>
+     <header>
+        <nav>
+            <ul>
+                <li><a href="/dashboard/<%= username %>">Retour Tableau de bord</a></li>
+                <li><a href="/catway/<%= username %>/catwaysList">Liste des catways</a></li>
+                <li><a href="/booking/<%= username %>/bookingsList">Liste des réservations</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Listes des réservations</h1>
+        <table>
+        <thead>
+            <tr>
+                <th>Numéro du catway</th>
+                <th>Client</th>
+                <th>Nom du bateau</th>
+                <th>Date d'arrivée</th>
+                <th>Date de départ</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <% bookings.forEach(booking =>{ %>
+            <tr>
+                <td><%= booking.catwayNumber %></td>
+                <td><%= booking.clientName %></td>
+                <td><%= booking.boatName %></td>
+                <td><%= booking.checkIn ? booking.checkIn.toISOString().substring(0, 10) : '' %></td>
+                <td><%= booking.checkOut ? booking.checkOut.toISOString().substring(0, 10) : '' %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    </main>
+</body>
+</html>

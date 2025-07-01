@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const catwayController = require('../controllers/catwayController');
 const validateFormCatway = require('../middleware/validateFormCatway');
+const authenticateUser = require('../middleware/authenticateUser');
 
-router.get('/', catwayController.getAllCatways);
+router.get('/:username/catwaysList',authenticateUser, catwayController.getAllCatways);
 router.post('/create', validateFormCatway, catwayController.createCatway);
 router.post('/update', validateFormCatway, catwayController.updateCatway);
 router.post('/partialUpdate',validateFormCatway, catwayController.partialUpdateCatway);
