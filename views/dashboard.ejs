@@ -92,6 +92,40 @@
                 <button type="submit">Supprimer</button>
             </form>
         </section>
+
+        <section>
+            <h2>Réservation</h2>
+            <form action="/booking/search" method="POST">
+                <h3>Rechercher une réservation par son Id</h3>
+                <input type="text" name="id" placeholder="Id du catway" required>
+                <input type="text" name="idReservation" placeholder="Id de la réservation" required>
+                <button type="submit">Voir la réservation</button>
+            </form>
+
+            <form action="/catway/<%= catway._id %>/bookings/create" method="POST">
+                <h3>Créer une réservation</h3>
+                <input type="text" name="clientName" placeholder="Nom du client" required>
+                <input type="text" name="boatName" placeholder="Nom du bateau" required>
+                <input type="date" name="checkIn" placeholder="Date d'arrivée" required>
+                <input type="date" name="checkOut" placeholder="Date de départ" required>
+                <button type="submit">Créer</button>
+            </form>
+
+             <form action="/catway/<%= catway._id %>/bookings/<%= booking._id %>" method="POST">
+                <h3>Modifier une réservation</h3>
+                <input type="text" name="clientName" placeholder="Nom du client" required>
+                <input type="text" name="boatName" placeholder="Nom du bateau" required>
+                <input type="date" name="checkIn" placeholder="Date d'arrivée" required>
+                <input type="date" name="checkOut" placeholder="Date de départ" required>
+                <button type="submit">Modifier</button>
+            </form>
+
+            <form action="/catway/<%= catway._id %>/bookings/<%= booking._id %>/delete" method="POST" onsubmit="return confirm('Confirmez-vous la suppression de cette réservation ?');">
+                <input type="text" id="catwayId" name="catwayId" placeholder="Id du catway" required>
+                <input type="text" id="bookingId" name="bookingId" placeholder="Id de la réservation" required>
+                <button type="submit">Supprimer</button>
+            </form>
+        </section>
     </main>
     <footer>
 
