@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     res.render('index', {error : null});
 });
 
-router.use('/catways', bookingRoute);
+router.use('/booking', bookingRoute);
 router.use('/catway', catwayRoute);
 router.use('/user', userRoute);
 router.use('/dashboard', dashboardRoute);

@@ -3,6 +3,22 @@ const Catway = require('../models/Catway');
 
 exports.getAllBookings = async (req, res) => {
     try {
+        const bookings = await Booking.find({}); 
+
+        res.render('bookingsList', {
+            title: `Liste de toutes les réservations`,
+            bookings: bookings,
+            catway: null,
+            username: req.user.name 
+        });
+    } catch(error) {
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+};
+
+
+exports.getAllBookingsByCatway = async (req, res) => {
+    try {
         const id = req.params.id;
         const catway = await Catway.findById(id);
         if(!catway) {
@@ -11,7 +27,7 @@ exports.getAllBookings = async (req, res) => {
 
         const bookings = await Booking.find({ catwayNumber: catway.catwayNumber });
 
-        res.render('bookingsList', {
+        res.render('bookingsListByCatway', {
             title: `Réservations du catway ${catway.catwayNumber}`,
             booking: bookings,
             catway: catway

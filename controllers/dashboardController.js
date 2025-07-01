@@ -6,7 +6,16 @@ exports.dashboardByUsername = async (req, res) => {
         const user = await User.findOne({ name: username });
         if (!user) return res.status(404).send("Utilisateur non trouvé");
 
-        res.render('dashboard', { user, id: user._id, email: user.email, error: null, successMsg: null, catway:{ _id: '' },booking: { _id: '' }});
+        res.render('dashboard', { 
+            user,
+            username: username,
+            id: user._id,
+            email: user.email,
+            error: null,
+            successMsg: null,
+            catway:{ _id: '' },
+            booking: { _id: '' }
+        });
 
     } catch(error) {
         console.error("Erreur dans dashboardByUsername :", error);
