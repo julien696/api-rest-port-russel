@@ -71,8 +71,7 @@ exports.createBooking = async (req, res) => {
 
 exports.updateBooking = async (req, res) => {
     try {
-        const catwayId = req.params.id;
-        const bookingId = req.params.idReservation;
+        const { catwayId, bookingId } = req.body;
         const catway = await Catway.findById(catwayId);
 
         if(!catway) {
