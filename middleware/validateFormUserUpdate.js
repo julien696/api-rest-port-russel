@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-const validateUserUpdate = [
+const validateFormUserUpdate = [
   body('email').isEmail().withMessage("L'email actuel n'est pas valide").normalizeEmail(),
   body('newName').trim().isLength({ min: 3 }).withMessage('Le nouveau nom doit contenir au moins 3 lettres'),  
   body('newEmail').isEmail().withMessage("Le nouvel email n'est pas valide").normalizeEmail(), 
@@ -18,4 +18,4 @@ const validateUserUpdate = [
   }
 ];
 
-module.exports = validateUserUpdate;
+module.exports = validateFormUserUpdate;
