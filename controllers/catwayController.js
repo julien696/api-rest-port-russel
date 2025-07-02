@@ -1,4 +1,6 @@
 const Catway = require('../models/Catway');
+const Booking = require('../models/Booking');
+const User = require('../models/User');
 
 exports.getAllCatways = async (req, res) => {
     try {
@@ -31,8 +33,12 @@ exports.updateCatway = async (req, res) => {
         const { id, catwayNumber, type, catwayState } = req.body;
         const catway = await Catway.findById(id);
 
-        if (!catway)
-            return res.render('dashboard', { error: 'Catway non trouvé', catway: null });
+        if (!catway) {
+            const catways = await Catway.find().sort({catwayNumber: 1});
+            const bookings = await Booking.find();
+            const users = await User.find();
+            return res.render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+        }
 
         catway.catwayNumber = catwayNumber;
         catway.type = type;
@@ -41,7 +47,10 @@ exports.updateCatway = async (req, res) => {
 
         res.redirect('/dashboard?success=Catway modifié avec succès');
     } catch (error) {
-        res.status(500).render('dashboard', { error: 'Erreur mise à jour', catway: null });
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
+        res.status(500).render('dashboard', { error: 'Erreur mise à jour', catway: null, catways, bookings, users, user: req.user });
     }
 };
 
@@ -54,11 +63,19 @@ exports.partialUpdateCatway = async (req, res) => {
         if (catwayState) update.catwayState = catwayState;
 
         const catway = await Catway.findByIdAndUpdate(id, update, { new: true });
-        if (!catway) return res.render('dashboard', { error: 'Catway non trouvé', catway: null });
+        if (!catway) {
+            const catways = await Catway.find().sort({catwayNumber: 1});
+            const bookings = await Booking.find();
+            const users = await User.find();
+            return res.render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+        }
 
         res.redirect('/dashboard?success=Catway partiellement modifié');
     } catch (error) {
-        res.status(500).render('dashboard', { error: 'Erreur serveur modification partielle', catway: null });
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
+        res.status(500).render('dashboard', { error: 'Erreur serveur modification partielle', catway: null, catways, bookings, users, user: req.user });
     }
 };
 
@@ -69,8 +86,12 @@ exports.getCatwayById = async (req, res) => {
         const id = req.params.id;
         const catway = await Catway.findById(id);
 
-        if (!catway)
-            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, username, user: req.user, id: req._id, successMsg: null});
+        if (!catway) {
+            const catways = await Catway.find().sort({catwayNumber: 1});
+            const bookings = await Booking.find();
+            const users = await User.find();
+            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+        }
 
         return res.render('catway', {
             title: `Détail du catway ${catway.catwayNumber}`,
@@ -78,7 +99,10 @@ exports.getCatwayById = async (req, res) => {
             username,
         });
     } catch (error) {
-        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, username, user: req.user, id: req._id, successMsg: null });
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
+        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, catways, bookings, users, user: req.user });
     }
 };
 
@@ -87,11 +111,18 @@ exports.deleteCatway = async (req, res) => {
         const { id } = req.body; 
         const catway = await Catway.findByIdAndDelete(id);
 
-        if (!catway)
-            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null });
+        if (!catway) {
+            const catways = await Catway.find().sort({catwayNumber: 1});
+            const bookings = await Booking.find();
+            const users = await User.find();
+            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+        }
 
         res.redirect('/dashboard?success=Catway supprimé');
     } catch (error) {
-        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null });
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
+        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, catways, bookings, users, user: req.user });
     }
 };
