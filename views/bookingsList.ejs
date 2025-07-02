@@ -25,7 +25,6 @@
                 <th>Nom du bateau</th>
                 <th>Date d'arrivée</th>
                 <th>Date de départ</th>
-                <th>Détail</th>
             </tr>
         </thead>
         <tbody>
@@ -36,12 +35,18 @@
                 <td><%= booking.boatName %></td>
                 <td><%= booking.checkIn ? booking.checkIn.toISOString().substring(0, 10) : '' %></td>
                 <td><%= booking.checkOut ? booking.checkOut.toISOString().substring(0, 10) : '' %></td>
-                <td><a href="/booking/<%= booking._id %>">Détail réservation</a></td>
             </tr>
             <% }) %>
         </tbody>
     </table>
 
     </main>
+    <footer>
+        <span>
+            <small>
+                © 2025 Port de plaisance Russel
+            </small>
+        </span>
+    </footer>
 </body>
 </html>
