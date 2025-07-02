@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>catway</title>
+    <title>Réservation</title>
 </head>
 <body>
     <header>
@@ -14,12 +14,15 @@
                 <li><a href="/booking/bookingsList">Liste des réservations</a></li>
             </ul>
         </nav>
-    </header>   
+    </header>
     <main>
         <div>
-            <h1><%= title %></h1>
-            <span>Type : <%= catway.type%></span>
-            <span>État du catway : <%= catway.catwayState %></span>
+            <h1>Réservation <%= booking.clientName %></h1>
+            <span>Numéro de catway : <%= booking.catwayNumber %></span>
+            <span>Nom du client : <%= booking.clientName %></span>
+            <span>Nom du bateau : <%= booking.boatName %></span>
+            <span>Date d'arrivée : <%= booking.checkIn %></span>
+            <span>Date de départ : <%= booking.checkOut %></span>
         </div>
     </main>
     <footer>

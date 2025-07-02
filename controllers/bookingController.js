@@ -54,7 +54,7 @@ exports.getBookingById = async (req, res) => {
         if(!booking || booking.catwayNumber !== catway.catwayNumber) {
            return res.status(404).render('dashboard', { error: 'Réservation non trouvée', catway, username, user: req.user, id: req._id, successMsg: null });
         }
-        return res.render('bookingById', { title: `Détail de la réservation de ${booking.clientName} - catway n°${catway.catwayNumber}`, booking, catway });
+        return res.render('booking', { title: `Détail de la réservation de ${booking.clientName} - catway n°${catway.catwayNumber}`, booking, catway });
     } catch(error) {
         return res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, username, user: req.user, id: req._id, successMsg: null });
     }
