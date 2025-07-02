@@ -4,10 +4,10 @@ const bookingController = require('../controllers/bookingController');
 const validateFormBooking = require('../middleware/validateFormBooking');
 const authenticateUser = require('../middleware/authenticateUser');
 
-router.get('/:username/bookingsList',authenticateUser, bookingController.getAllBookings);
-router.get('/booking/search', bookingController.getBookingById);
-router.post('/booking/create',validateFormBooking, bookingController.createBooking);
-router.post('/booking/update', bookingController.updateBooking);
-router.post('/booking/delete', bookingController.deleteBooking);
+router.get('/bookingsList',authenticateUser, bookingController.getAllBookings);
+router.get('/:id',authenticateUser, bookingController.getBookingById);
+router.post('/booking/create',authenticateUser, validateFormBooking, bookingController.createBooking);
+router.post('/booking/update',authenticateUser, bookingController.updateBooking);
+router.post('/booking/delete',authenticateUser, bookingController.deleteBooking);
 
 module.exports = router;

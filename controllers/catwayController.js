@@ -2,12 +2,12 @@ const Catway = require('../models/Catway');
 
 exports.getAllCatways = async (req, res) => {
     try {
-        const catways = await Catway.find();
+        const catways = await Catway.find().sort({catwayNumber: 1});
 
         res.render('catwaysList', {
             title: 'Liste des Catways',
             catways: catways,
-            username: req.user.name
+            user: req.user,
         });
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
@@ -63,19 +63,22 @@ exports.partialUpdateCatway = async (req, res) => {
 };
 
 exports.getCatwayById = async (req, res) => {
+    const username = req.params.username;
+
     try {
-        const id = req.query.id;
+        const id = req.params.id;
         const catway = await Catway.findById(id);
 
         if (!catway)
-            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null });
+            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, username, user: req.user, id: req._id, successMsg: null});
 
-        return res.render('catwayById', {
+        return res.render('catway', {
             title: `Détail du catway ${catway.catwayNumber}`,
-            catway
+            catway,
+            username,
         });
     } catch (error) {
-        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null });
+        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, username, user: req.user, id: req._id, successMsg: null });
     }
 };
 

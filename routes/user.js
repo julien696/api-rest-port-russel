@@ -4,6 +4,7 @@ const userController = require('../controllers/userController');
 const validateFormUser = require('../middleware/validateFormUser');
 const validateFormUserUpdate = require('../middleware/validateFormUserUpdate');
 
+
 router.post('/login', userController.authenticate);
 router.post('/create', validateFormUser, userController.createUser);
 router.post('/update', validateFormUserUpdate, userController.updateUser);
