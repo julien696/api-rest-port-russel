@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catway</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Retour Tableau de bord</a></li>
+                <li><a href="/catway/catwaysList">Liste des catways</a></li>
+                <li><a href="/booking/bookingsList">Liste des réservations</a></li>
+            </ul>
+        </nav>
+    </header>   
+    <main>
+        <div>
+            <h1><%= title %></h1>
+            <span>Type : <%= catway.type%></span>
+            <p>État du catway : <%= catway.catwayState %></p>
+        </div>
+    </main>
+</body>
+</html>

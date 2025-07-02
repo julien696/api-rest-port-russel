@@ -9,9 +9,9 @@
      <header>
         <nav>
             <ul>
-                <li><a href="/dashboard/<%= username %>">Retour Tableau de bord</a></li>
-                <li><a href="/catway/<%= username %>/catwaysList">Liste des catways</a></li>
-                <li><a href="/booking/<%= username %>/bookingsList">Liste des réservations</a></li>
+                <li><a href="/dashboard">Retour Tableau de bord</a></li>
+                <li><a href="/catway/catwaysList">Liste des catways</a></li>
+                <li><a href="/booking/bookingsList">Liste des réservations</a></li>
             </ul>
         </nav>
     </header>
@@ -24,7 +24,8 @@
                 <th>Client</th>
                 <th>Nom du bateau</th>
                 <th>Date d'arrivée</th>
-                <th>Date de départ</th> 
+                <th>Date de départ</th>
+                <th>Détail</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@
                 <td><%= booking.boatName %></td>
                 <td><%= booking.checkIn ? booking.checkIn.toISOString().substring(0, 10) : '' %></td>
                 <td><%= booking.checkOut ? booking.checkOut.toISOString().substring(0, 10) : '' %></td>
+                <td><a href="/booking/<%= booking._id %>">Détail réservation</a></td>
             </tr>
             <% }) %>
         </tbody>

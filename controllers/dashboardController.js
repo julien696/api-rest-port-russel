@@ -1,14 +1,13 @@
 const User = require('../models/User');
 
 exports.dashboardByUsername = async (req, res) => {
-    const username = req.params.username;
     try {
-        const user = await User.findOne({ name: username });
+        const user = req.user;
         if (!user) return res.status(404).send("Utilisateur non trouvé");
 
         res.render('dashboard', { 
             user,
-            username: username,
+            username: user.name,
             id: user._id,
             email: user.email,
             error: null,
