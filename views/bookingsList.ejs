@@ -33,8 +33,8 @@
                 <td><%= booking.catwayNumber %></td>
                 <td><%= booking.clientName %></td>
                 <td><%= booking.boatName %></td>
-                <td><%= booking.checkIn ? booking.checkIn.toISOString().substring(0, 10) : '' %></td>
-                <td><%= booking.checkOut ? booking.checkOut.toISOString().substring(0, 10) : '' %></td>
+                <td><%= booking.checkIn ? new Date(booking.checkIn).toLocaleDateString('fr-FR') : '' %></td>
+                <td><%= booking.checkOut ? new Date(booking.checkIn).toLocaleDateString('fr-FR') : '' %></td>
             </tr>
             <% }) %>
         </tbody>

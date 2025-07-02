@@ -1,9 +1,15 @@
 const User = require('../models/User');
+const Catway = require('../models/Catway');
+const Booking = require('../models/Booking');
 
 exports.dashboardByUsername = async (req, res) => {
     try {
         const user = req.user;
         if (!user) return res.status(404).send("Utilisateur non trouvé");
+
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
 
         res.render('dashboard', { 
             user,
@@ -13,7 +19,10 @@ exports.dashboardByUsername = async (req, res) => {
             error: null,
             successMsg: null,
             catway:{ _id: '' },
-            booking: { _id: '' }
+            booking: { _id: '' },
+            catways,
+            bookings,
+            users
         });
 
     } catch(error) {
