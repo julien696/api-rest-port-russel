@@ -80,7 +80,6 @@ exports.partialUpdateCatway = async (req, res) => {
 };
 
 exports.getCatwayById = async (req, res) => {
-    const username = req.params.username;
 
     try {
         const id = req.params.id;
@@ -96,7 +95,6 @@ exports.getCatwayById = async (req, res) => {
         return res.render('catway', {
             title: `Détail du catway ${catway.catwayNumber}`,
             catway,
-            username,
         });
     } catch (error) {
         const catways = await Catway.find().sort({catwayNumber: 1});
