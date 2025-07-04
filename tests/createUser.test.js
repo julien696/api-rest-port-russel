@@ -9,10 +9,14 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    await require('mongoose').connection.close();
+    await mongoose.connection.close();
 });
 
 beforeEach(async () => {
+    await User.deleteMany({});
+});
+
+afterEach(async () => {
     await User.deleteMany({});
 });
 
@@ -21,7 +25,7 @@ test('Créer un utilisateur', async () => {
         body:{
             name: 'John Doe',
             email: 'johndoe@gmail.com',
-            password: '12345'
+            password: '123456'
         }
     };
 
