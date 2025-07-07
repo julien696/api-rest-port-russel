@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { comparePassword, hashPassword } = require('../services/passwordService');
+const { comparePassword } = require('../services/passwordService');
 const Catway = require('../models/Catway');
 const Booking = require('../models/Booking');
 
@@ -45,8 +45,7 @@ exports.createUser = async (req, res) => {
             });
         }
 
-        const hashedPassword = await hashPassword(password);
-        const user = new User({ name, email, password: hashedPassword });
+        const user = new User({ name, email, password });
         await user.save();
 
         res.redirect('/dashboard?success=Utilisateur créé avec succès');
