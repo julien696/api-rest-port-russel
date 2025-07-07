@@ -37,7 +37,7 @@
                 <select name="id" required>
                     <% users.forEach(user => { %>
                         <option value="<%= user._id %>">
-                            <%= user.name %> (<%= user._id %>)
+                            <%= user.name %> (Id : <%= user._id %>)
                         </option>
                     <% }) %>
                 </select>
@@ -52,7 +52,7 @@
                 <select name="id" required>
                     <% users.forEach(user => { %>
                         <option value="<%= user._id %>">
-                            <%= user.name %> (<%= user._id %>)
+                            <%= user.name %> (Id : <%= user._id %>)
                         </option>
                     <% }) %>
                 </select>
@@ -79,7 +79,7 @@
                 <select name="id" id="catway-id-select" required>
                     <% catways.forEach(catway => { %>
                         <option value="<%= catway._id %>">
-                            <%= catway.catwayNumber %> (<%= catway._id %>)
+                            N° du catway : <%= catway.catwayNumber %> (Id : <%= catway._id %>)
                         </option>
                     <% }) %>
                 </select>
@@ -91,11 +91,29 @@
                 <select name="id" required>
                     <% catways.forEach(catway => { %>
                         <option value="<%= catway._id %>">
-                            <%= catway.catwayNumber %> (<%= catway._id %>)
+                            N° du catway : <%= catway.catwayNumber %> (Id : <%= catway._id %>)
                         </option>
                     <% }) %>
                 </select>
                 <input type="text" name="catwayState" placeholder="Nouvel état" required>
+                <button type="submit">Modifier</button>
+            </form>$
+
+            <form action="/catway/update" method="POST">
+                <h3>Modifier un catway</h3>
+                <select name="id" required>
+                    <% catways.forEach(catway => { %>
+                        <option value="<%= catway._id %>">
+                            N° du catway : <%= catway.catwayNumber %> (Id : <%= catway._id %>)
+                        </option>
+                    <% }) %>
+                </select>
+                <input type="text" name="catwayNumber" placeholder="Nouveau N° du catway" required>
+                <select name="type" required>
+                    <option value="long">Long</option>
+                    <option value="short">Court</option>
+                </select>
+                <input type="text" name="catwayState" placeholder="Nouvel état du catway" required>
                 <button type="submit">Modifier</button>
             </form>
                 
@@ -104,7 +122,7 @@
                 <select name="id" required>
                     <% catways.forEach(catway => { %>
                         <option value="<%= catway._id %>">
-                            <%= catway.catwayNumber %> (<%= catway._id %>)
+                            N° du catway : <%= catway.catwayNumber %> (Id : <%= catway._id %>)
                         </option>
                     <% }) %>
                 </select>
@@ -119,7 +137,7 @@
                 <select name="id" id="booking-id-select" required>
                     <% bookings.forEach(booking => { %>
                         <option value="<%= booking._id %>">
-                            <%= booking.clientName %> - (<%= booking._id %>)
+                            <%= booking.clientName %> - (Id : <%= booking._id %>)
                         </option>
                     <% }) %>
                 </select>
@@ -128,6 +146,13 @@
 
             <form action="/booking/create" method="POST">
                 <h3>Créer une réservation</h3>
+                 <select name="catwayNumber" id="catwayNumber" required>
+                    <% catways.forEach(catway => { %>
+                        <option value="<%= catway.catwayNumber %>">
+                           N° du catway: <%= catway.catwayNumber %> 
+                        </option>
+                    <% }) %>
+                </select>
                 <input type="text" name="clientName" placeholder="Nom du client" required>
                 <input type="text" name="boatName" placeholder="Nom du bateau" required>
                 <input type="date" name="checkIn" placeholder="Date d'arrivée" required>
@@ -137,19 +162,29 @@
 
              <form action="/booking/update" method="POST">
                 <h3>Modifier une réservation</h3>
-                <input type="text" name="idCatway" placeholder="Id du catway" required>
-                <input type="text" name="idReservation" placeholder="Id de la réservation" required>
-                <input type="text" name="clientName" placeholder="Nom du client" required>
-                <input type="text" name="boatName" placeholder="Nom du bateau" required>
-                <input type="date" name="checkIn" placeholder="Date d'arrivée" required>
-                <input type="date" name="checkOut" placeholder="Date de départ" required>
+                  <select name="id" id="booking-id-select" required>
+                    <% bookings.forEach(booking => { %>
+                        <option value="<%= booking._id %>">
+                            <%= booking.clientName %> - (Id : <%= booking._id %>)
+                        </option>
+                    <% }) %>
+                </select>
+                <input type="text" name="clientName" placeholder="Nouveau nom du client" required>
+                <input type="text" name="boatName" placeholder="Nouveau nom du bateau" required>
+                <input type="date" name="checkIn" placeholder="Nouvel date d'arrivée" required>
+                <input type="date" name="checkOut" placeholder="Nouvel date de départ" required>
                 <button type="submit">Modifier</button>
             </form>
 
             <form action="/booking/delete" method="POST" onsubmit="return confirm('Confirmez-vous la suppression de cette réservation ?');">
                 <h3>Supprimer une Réservation</h3>
-                <input type="text" id="catwayId" name="catwayId" placeholder="Id du catway" required>
-                <input type="text" id="bookingId" name="bookingId" placeholder="Id de la réservation" required>
+                <select name="id" id="booking-id-select" required>
+                        <% bookings.forEach(booking => { %>
+                            <option value="<%= booking._id %>">
+                                <%= booking.clientName %> - (Id : <%= booking._id %>)
+                            </option>
+                        <% }) %>
+                </select>
                 <button type="submit">Supprimer</button>
             </form>
         </section>

@@ -56,10 +56,9 @@ exports.updateCatway = async (req, res) => {
 
 exports.partialUpdateCatway = async (req, res) => {
     try {
-        const { id, type, catwayState } = req.body;
+        const { id, catwayState } = req.body;
         const update = {};
 
-        if (type) update.type = type;
         if (catwayState) update.catwayState = catwayState;
 
         const catway = await Catway.findByIdAndUpdate(id, update, { new: true });
