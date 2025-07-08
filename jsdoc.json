@@ -1,0 +1,9 @@
+{
+  "source": {
+    "include": ["controllers", "models", "routes", "middleware", "services"],
+    "exclude": ["node_modules", "tests"]
+  },
+  "opts": {
+    "destination": "./docs"
+  }
+}
