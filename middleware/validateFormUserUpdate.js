@@ -3,6 +3,13 @@ const User = require('../models/User')
 const Catway = require('../models/Catway');
 const Booking = require('../models/Booking');
 
+/**
+ * Valide les champs du formulaire d'utilisateur.
+ * @function
+ * @param {Object} req - objet de la requête HTTP. Récupére les champs du formulaire d'utilisateur.
+ * @param {Object} res - objet de la réponse HTTP. Si il y a une erreur redirige vers la page de dashboard avec un message d'erreur.
+ * @param {Function} next - fonction pour passer à la suite du middleware.
+ */
 const validateFormUserUpdate = [
   body('newName').trim().isLength({ min: 3 }).withMessage('Le nouveau nom doit contenir au moins 3 lettres'),  
   body('newEmail').trim().isEmail().withMessage("Le nouvel email n'est pas valide").normalizeEmail(), 

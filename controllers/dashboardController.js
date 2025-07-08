@@ -2,6 +2,13 @@ const User = require('../models/User');
 const Catway = require('../models/Catway');
 const Booking = require('../models/Booking');
 
+/**
+ * Récupère les informations de l'utilisateur connecté et les affiche dans la vue 'dashboard.ejs'.
+ * @function
+ * @async
+ * @param {Object} req - objet de la requête HTTP. Récupére l'utilisateur connecté et les variables utiles au dashboard (error, successMsg, catways, bookings, users).
+ * @param {Object} res - objet de la réponse HTTP. Affiche la page de dashboard.
+ */
 exports.dashboardByUsername = async (req, res) => {
     try {
         const user = req.user;
