@@ -17,7 +17,7 @@ beforeEach(async () => {
     await Catway.deleteMany({});
     const catway = await Catway.create({
         catwayNumber: 2,
-        type: 'court',
+        type: 'short',
         catwayState: 'disponible',
     });
     catwayId = catway._id;

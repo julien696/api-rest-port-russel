@@ -49,11 +49,12 @@ test('Mettre à jour un utilisateur', async () => {
     const user = await User.findOne({email: 'maclovin@gmail.com'});
     expect(user).not.toBeNull();
     expect(user.name).toBe('Mac Lovin');
-    expect(res.render).toHaveBeenCalledWith('dashboard', {
+    expect(res.render).toHaveBeenCalledWith(
+        'dashboard',
+        expect.objectContaining({
             user: req.user,
             id: req.user.id,
-            successMsg: `Utilisateur ${userId} modifié avec succès`,
-            error: null,
-            catway: null 
-        });
+            successMsg: `Utilisateur ${user.name} modifié avec succès`
+        })
+    );
 })

@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
 app.listen(port, () => {
     console.log(`Serveur lancé sur http://localhost:${port}`)
