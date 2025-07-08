@@ -26,7 +26,7 @@ test('Créer une réservation', async () => {
 
     const catway = await Catway.create({
         catwayNumber: 222,
-        type: 'court',
+        type: 'short',
         catwayState: 'disponible',
     });
   

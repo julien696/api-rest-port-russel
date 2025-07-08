@@ -6,12 +6,19 @@ const Booking = require('../models/Booking');
 
 exports.authenticate = async (req, res) => {
     const { email, password } = req.body;
+
     try {
         const user = await User.findOne({ email });
-        if (!user) return res.render('index', { error: "Utilisateur non trouvé" });
+
+        if (!user) {
+            return res.render('index', { error: "Utilisateur non trouvé" });
+        }
 
         const isMatch = await comparePassword(password, user.password);
-        if (!isMatch) return res.render('index', { error: "Mot de passe incorrect" });
+
+        if (!isMatch) {
+            return res.render('index', { error: "Mot de passe incorrect" });
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1d' });
 
@@ -21,10 +28,14 @@ exports.authenticate = async (req, res) => {
         });
 
         res.redirect('/dashboard');
-
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error });
     }
+};
+
+exports.logout = (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
 };
 
 exports.createUser = async (req, res) => {
@@ -39,8 +50,7 @@ exports.createUser = async (req, res) => {
                 user: req.user, 
                 id: req.user.id, 
                 error: 'Cet email est déjà utilisé', 
-                successMsg: null, 
-                catway: null, 
+                successMsg: null,  
                 catways, bookings, users
             });
         }
@@ -53,7 +63,7 @@ exports.createUser = async (req, res) => {
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
-        res.status(500).render('dashboard', { user: req.user, error: 'Erreur serveur', catways, bookings, users });
+        res.status(500).render('dashboard', { user: req.user, error: 'Erreur serveur', catways, bookings, users, successMsg: null });
     }
 };
 
@@ -65,11 +75,12 @@ exports.updateUser = async (req, res) => {
             const catways = await Catway.find().sort({catwayNumber: 1});
             const bookings = await Booking.find();
             const users = await User.find();
+
             return res.render('dashboard', {
                 user: req.user,
                 id: req.user.id,
                 error: 'Utilisateur non trouvé',
-                catway: null,
+                successMsg: null,
                 catways, bookings, users
             });
         }
@@ -80,22 +91,29 @@ exports.updateUser = async (req, res) => {
 
         await user.save();
 
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
+
         return res.render('dashboard', {
             user: req.user,
             id: req.user.id,
-            successMsg: `Utilisateur ${id} modifié avec succès`,
+            successMsg: `Utilisateur ${user.name} modifié avec succès`,
             error: null,
-            catway: null 
+            catways,
+            bookings,
+            users
         });
     } catch (error) {
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
+
         return res.render('dashboard', {
             user: req.user,
             error: 'Erreur serveur',
-            catway: null,
-            catways, bookings, users
+            catways, bookings, users,
+            successMsg: null
         });
     }
 };
@@ -109,22 +127,26 @@ exports.deleteUser = async (req, res) => {
             const catways = await Catway.find().sort({catwayNumber: 1});
             const bookings = await Booking.find();
             const users = await User.find();
+
             return res.render('dashboard', {
                 user: req.user,
                 id: req.user.id,
                 error: `Utilisateur non trouvé`,
                 successMsg: null,
-                catway: null,
                 catways, bookings, users
             });
         }
+
+        const catways = await Catway.find().sort({catwayNumber: 1});
+        const bookings = await Booking.find();
+        const users = await User.find();
 
         return res.render('dashboard', {
             user: req.user,
             id: req.user.id,
             successMsg: `Utilisateur ${id} supprimé`,
             error: null,
-            catway: null 
+            catways, bookings, users
         });
     } catch (error) {
         const catways = await Catway.find().sort({catwayNumber: 1});
@@ -134,8 +156,8 @@ exports.deleteUser = async (req, res) => {
             user: req.user,
             error: 'Erreur serveur',
             successMsg: null,
-            catway: null,
-            catways, bookings, users
+            catways, bookings, users,
+            successMsg: null
         });
     }
 };

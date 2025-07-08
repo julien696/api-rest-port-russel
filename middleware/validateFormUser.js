@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 
 const validateFormUser = [
     body('name').trim().notEmpty().withMessage('Le nom est requis et minimun 3 lettres').isLength({min:3}),
-    body('email').isEmail().withMessage(`L'email n'est pas valide`).normalizeEmail(),
+    body('email').trim().isEmail().withMessage(`L'email n'est pas valide`).normalizeEmail(),
     body('password').isLength({min:6}).withMessage('Le mot de passe doit contenir au moins 6 caractères'),
 
     (req, res, next) => {

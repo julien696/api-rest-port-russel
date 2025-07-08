@@ -12,6 +12,9 @@
                 <li><a href="/dashboard">Retour Tableau de bord</a></li>
                 <li><a href="/catway/catwaysList">Liste des catways</a></li>
                 <li><a href="/booking/bookingsList">Liste des réservations</a></li>
+                <form action="/user/logout" method="post">
+                    <button type="submit">Déconnexion</button>
+                </form>
             </ul>
         </nav>
     </header>
@@ -68,7 +71,7 @@
                 <input type="text" name="catwayNumber" placeholder="N° du catway" required>
                 <select name="type" required>
                     <option value="long">Long</option>
-                    <option value="short">Court</option>
+                    <option value="short">Short</option>
                 </select>
                 <input type="text" name="catwayState" placeholder="État du catway" required>
                 <button type="submit">Créer</button>
@@ -87,7 +90,7 @@
             </form>
 
             <form action="/catway/partialUpdate" method="POST">
-                <h3>Modifier un catway</h3>
+                <h3>Modifier l'état d'un catway</h3>
                 <select name="id" required>
                     <% catways.forEach(catway => { %>
                         <option value="<%= catway._id %>">
@@ -97,7 +100,7 @@
                 </select>
                 <input type="text" name="catwayState" placeholder="Nouvel état" required>
                 <button type="submit">Modifier</button>
-            </form>$
+            </form>
 
             <form action="/catway/update" method="POST">
                 <h3>Modifier un catway</h3>
@@ -111,13 +114,13 @@
                 <input type="text" name="catwayNumber" placeholder="Nouveau N° du catway" required>
                 <select name="type" required>
                     <option value="long">Long</option>
-                    <option value="short">Court</option>
+                    <option value="short">Short</option>
                 </select>
                 <input type="text" name="catwayState" placeholder="Nouvel état du catway" required>
                 <button type="submit">Modifier</button>
             </form>
                 
-            <form action="/catway/delete" method="POST" onsubmit="return confirm('Êtes-vous sur de vouloir supprimmer catway id: <%= id %> ?')">
+            <form action="/catway/delete" method="POST" onsubmit="return confirm('Confirmer la suppression du catway ?')">
                 <h3>Supprimer un catway</h3>
                 <select name="id" required>
                     <% catways.forEach(catway => { %>

@@ -18,7 +18,8 @@ exports.getAllCatways = async (req, res) => {
 
 exports.createCatway = async (req, res) => {
     try {
-        const { catwayNumber, type, catwayState } = req.body;
+        let { catwayNumber, type, catwayState } = req.body;
+        catwayNumber = Number(catwayNumber);
         const newCatway = new Catway({ catwayNumber, type, catwayState });
         await newCatway.save();
 
@@ -30,14 +31,15 @@ exports.createCatway = async (req, res) => {
 
 exports.updateCatway = async (req, res) => {
     try {
-        const { id, catwayNumber, type, catwayState } = req.body;
+        let { id, catwayNumber, type, catwayState } = req.body;
+        catwayNumber = Number(catwayNumber);
         const catway = await Catway.findById(id);
 
         if (!catway) {
             const catways = await Catway.find().sort({catwayNumber: 1});
             const bookings = await Booking.find();
             const users = await User.find();
-            return res.render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+            return res.render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user, successMsg: null });
         }
 
         catway.catwayNumber = catwayNumber;
@@ -50,7 +52,7 @@ exports.updateCatway = async (req, res) => {
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
-        res.status(500).render('dashboard', { error: 'Erreur mise à jour', catway: null, catways, bookings, users, user: req.user });
+        res.status(500).render('dashboard', { error: 'Erreur mise à jour', catway: null, catways, bookings, users, user: req.user, successMsg: null });
     }
 };
 
@@ -66,7 +68,7 @@ exports.partialUpdateCatway = async (req, res) => {
             const catways = await Catway.find().sort({catwayNumber: 1});
             const bookings = await Booking.find();
             const users = await User.find();
-            return res.render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+            return res.render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user, successMsg: null });
         }
 
         res.redirect('/dashboard?success=Catway partiellement modifié');
@@ -74,7 +76,7 @@ exports.partialUpdateCatway = async (req, res) => {
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
-        res.status(500).render('dashboard', { error: 'Erreur serveur modification partielle', catway: null, catways, bookings, users, user: req.user });
+        res.status(500).render('dashboard', { error: 'Erreur serveur modification partielle', catway: null, catways, bookings, users, user: req.user, successMsg: null });
     }
 };
 
@@ -88,7 +90,7 @@ exports.getCatwayById = async (req, res) => {
             const catways = await Catway.find().sort({catwayNumber: 1});
             const bookings = await Booking.find();
             const users = await User.find();
-            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user, successMsg: null });
         }
 
         return res.render('catway', {
@@ -99,7 +101,7 @@ exports.getCatwayById = async (req, res) => {
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
-        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, catways, bookings, users, user: req.user });
+        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, catways, bookings, users, user: req.user, successMsg: null });
     }
 };
 
@@ -112,7 +114,7 @@ exports.deleteCatway = async (req, res) => {
             const catways = await Catway.find().sort({catwayNumber: 1});
             const bookings = await Booking.find();
             const users = await User.find();
-            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user });
+            return res.status(404).render('dashboard', { error: 'Catway non trouvé', catway: null, catways, bookings, users, user: req.user, successMsg: null });
         }
 
         res.redirect('/dashboard?success=Catway supprimé');
@@ -120,6 +122,6 @@ exports.deleteCatway = async (req, res) => {
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
-        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, catways, bookings, users, user: req.user });
+        res.status(500).render('dashboard', { error: 'Erreur serveur', catway: null, catways, bookings, users, user: req.user, successMsg: null });
     }
 };

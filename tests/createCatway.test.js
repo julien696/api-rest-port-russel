@@ -23,7 +23,7 @@ test('Créer un catway', async () => {
     const req ={
         body: {
             catwayNumber: 1,
-            type: 'court',
+            type: 'short',
             catwayState: 'disponible',
         }
     };
@@ -40,7 +40,7 @@ test('Créer un catway', async () => {
     const catway = await Catway.findOne({ catwayNumber: 1 });
     expect(catway).not.toBeNull();
     expect(catway.catwayNumber).toBe(1);
-    expect(catway.type).toBe('court');
+    expect(catway.type).toBe('short');
     expect(catway.catwayState).toBe('disponible');
     expect(res.redirect).toHaveBeenCalledWith('/dashboard?success=Catway créé avec succès');
 })

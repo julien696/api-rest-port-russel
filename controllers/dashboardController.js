@@ -7,6 +7,8 @@ exports.dashboardByUsername = async (req, res) => {
         const user = req.user;
         if (!user) return res.status(404).send("Utilisateur non trouvé");
 
+        const error = req.query.error;
+        const successMsg = req.query.success;
         const catways = await Catway.find().sort({catwayNumber: 1});
         const bookings = await Booking.find();
         const users = await User.find();
@@ -16,8 +18,8 @@ exports.dashboardByUsername = async (req, res) => {
             username: user.name,
             id: user._id,
             email: user.email,
-            error: null,
-            successMsg: null,
+            error,
+            successMsg,
             catway:{ _id: '' },
             booking: { _id: '' },
             catways,

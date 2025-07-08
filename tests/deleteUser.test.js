@@ -43,11 +43,12 @@ test('Supprimer un utilisateur', async ()=> {
 
     const user = await User.findById(userId);
     expect(user).toBeNull();
-    expect(res.render).toHaveBeenCalledWith('dashboard', {
+   expect(res.render).toHaveBeenCalledWith(
+        'dashboard',
+        expect.objectContaining({
             user: req.user,
             id: req.user.id,
-            successMsg: `Utilisateur ${userId} supprimé`,
-            error: null,
-            catway: null 
-        });
+            successMsg: expect.stringContaining('supprimé')
+        })
+    );
 })

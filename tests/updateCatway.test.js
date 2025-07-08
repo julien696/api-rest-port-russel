@@ -32,7 +32,7 @@ test('Modifier un catway', async () => {
         body: {
             id: catwayId,
             catwayNumber: 150,
-            type: 'court',
+            type: 'short',
             catwayState:'cool',
         }
     };
@@ -49,7 +49,7 @@ test('Modifier un catway', async () => {
     const catway = await Catway.findOne({catwayNumber: 150});
     expect(catway).not.toBeNull();
     expect(catway.catwayNumber).toBe(150);
-    expect(catway.type).toBe('court');
+    expect(catway.type).toBe('short');
     expect(catway.catwayState).toBe('cool');
     expect(res.redirect).toHaveBeenCalledWith('/dashboard?success=Catway modifié avec succès');
 })
