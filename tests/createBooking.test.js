@@ -1,11 +1,11 @@
-require('dotenv').config({path: '.env.test'});
+require('dotenv').config({ path: '.env.test' });
 const { createBooking } = require('../controllers/bookingController');
 const Booking = require('../models/Booking');
 const Catway = require('../models/Catway');
 const mongoose = require('mongoose');
 
-beforeAll( async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+beforeAll(async () => {
+    await mongoose.connect(process.env.MONGODB_URI_TEST);
 });
 
 afterAll( async () => {

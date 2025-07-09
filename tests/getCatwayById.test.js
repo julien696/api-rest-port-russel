@@ -4,7 +4,7 @@ const Catway = require('../models/Catway');
 const mongoose = require('mongoose');
 
 beforeAll(async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI_TEST);
 });
 
 afterAll(async () => {
